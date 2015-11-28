@@ -1,0 +1,33 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="title_size">34px</dimen>
+    <dimen name="userinfo_size">26px</dimen>
+    <dimen name="button_size">28px</dimen>
+    <dimen name="home_size">14sp</dimen>
+    <dimen name="item_size">29px</dimen>
+    <dimen name="margin_lr">10dip</dimen>
+    <dimen name="chat_size">25px</dimen>
+    <dimen name="mail_subject_size">17sp</dimen>
+    <dimen name="button_height">45.0dip</dimen>
+    <dimen name="btn_height">98px</dimen>
+    <dimen name="photo_width">80px</dimen>
+    <dimen name="photo_height">80px</dimen>
+    <dimen name="bottom_tab_font_size">12.0dip</dimen>
+    <dimen name="bottom_tab_padding_up">5.0dip</dimen>
+    <dimen name="bottom_tab_padding_drawable">2.0dip</dimen>
+
+    <dimen name="list_first_char_hint_text_size">15sp</dimen>
+    <dimen name="list_item_order_number_size">30sp</dimen>
+    <dimen name="list_item_first_view_right_margin">30sp</dimen>
+    <dimen name="list_item_first_char_padding">10dip</dimen>
+    <dimen name="list_item_name_size">25sp</dimen>
+    <dimen name="list_item_divider_margin">5dip</dimen>
+    <dimen name="list_item_icon_length">50sp</dimen>
+    <dimen name="popup_char_min_length">70dip</dimen>
+
+    <dimen name="pulldown_headerview_height">70dp</dimen>
+    <dimen name="pulldown_move_deviation">38dp</dimen>
+    <dimen name="pulldown_auto_incremental">6dp</dimen>
+</resources>

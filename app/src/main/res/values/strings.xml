@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">SummerRC</string>
+    <string name="hello">Hello World, MainActivity!</string>
+    <string name="record">刻录</string>
+    <string name="stop">返回</string>
+    <string name="next">下一题</string>
+    <string name="success">刻录完成</string>
+    <string name="error">刻录失败</string>
+    <string name="sdcarderror">SDCard不存在或者写保护</string>
+    <string name="ip">192.168.1.142</string>
+    <string name="update">修改上传IP地址</string>
+    <string name="upload">正在上传请稍后</string>
+    <string name="openCamera">打开相机</string>
+    <string name="closeCamera">关闭相机</string>
+    <string name="Focus">对焦</string>
+    <string name="takePictus">拍照</string>
+    <string name="continiue">继续</string>
+    <string name="prewer">预览</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+</resources>
