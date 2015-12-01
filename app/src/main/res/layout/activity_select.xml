@@ -6,14 +6,14 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/record"
+        android:id="@+id/bt_record"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="录制" />
 
 
     <Button
-        android:id="@+id/viewing"
+        android:id="@+id/bt_viewing"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -21,14 +21,14 @@
 
 
     <Button
-        android:id="@+id/setting"
+        android:id="@+id/bt_setting"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
         android:text="设置" />
 
     <Button
-        android:id="@+id/account"
+        android:id="@+id/bt_account"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"

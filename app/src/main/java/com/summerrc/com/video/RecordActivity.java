@@ -2,7 +2,9 @@ package com.summerrc.com.video;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.hardware.Camera;
 import android.media.MediaRecorder;
 import android.os.Bundle;
@@ -43,6 +45,10 @@ public class RecordActivity extends Activity {
     private List<String> list = new ArrayList<>();
     private int n = 0;
     private boolean shouldRun = true;
+
+    public static void startSelf(Context context) {
+        context.startActivity(new Intent(context, RecordActivity.class));
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -215,7 +221,7 @@ public class RecordActivity extends Activity {
 
     /**
      * 文件上传连接服务器的
-     **/
+     */
     class UploadTask implements Runnable {
         @Override
         public void run() {
@@ -292,7 +298,7 @@ public class RecordActivity extends Activity {
 
     private void stop() {
         if (record) {
-            ((TextView)findViewById(R.id.tv_content)).setText("答题结束！");
+            ((TextView) findViewById(R.id.tv_content)).setText("答题结束！");
             shouldRun = false;
             System.out.println(videoFile);
             mediaRecorder.stop();

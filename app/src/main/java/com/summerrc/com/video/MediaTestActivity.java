@@ -3,6 +3,7 @@ package com.summerrc.com.video;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
@@ -48,6 +49,10 @@ public class MediaTestActivity extends Activity {
     private List<String> list = new ArrayList<>();
     private int n = 0;
     private MyHandler myHandler;
+
+    public static void startSelf(Context context) {
+        context.startActivity(new Intent(context, MediaTestActivity.class));
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -1,77 +1,40 @@
 package com.summerrc.com.video;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
-
-public class SelectActivity extends Activity {
-    private Button record;
-    private Button setting;
-    private Button view;
-    private Button camera;
+public class SelectActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_select);
-        /**
-         * 录制按钮
-         */
-        record = (Button) findViewById(R.id.record);
-        record.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SelectActivity.this, RecordActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        /**
-         * 设置按钮
-         */
-        setting = (Button) findViewById(R.id.setting);
-        setting.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent1 = new Intent(SelectActivity.this, DialogActivity.class);
-                startActivity(intent1);
-
-            }
-        });
-
-        /**
-         * 观看按钮
-         */
-        view = (Button) findViewById(R.id.viewing);
-        view.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent2 = new Intent(SelectActivity.this, MediaTestActivity.class);
-                startActivity(intent2);
-
-            }
-        });
-
-        /**
-         * 拍照按钮
-         */
-        camera = (Button) findViewById(R.id.account);
-        camera.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent2 = new Intent(SelectActivity.this, MyCameraActivity.class);
-                startActivity(intent2);
-
-            }
-        });
+        innitView();
     }
 
+    private void innitView() {
+        findViewById(R.id.bt_record).setOnClickListener(this);
+        findViewById(R.id.bt_setting).setOnClickListener(this);
+        findViewById(R.id.bt_viewing).setOnClickListener(this);
+        findViewById(R.id.account).setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.bt_record:        //录制视频
+                RecordActivity.startSelf(this);
+                break;
+            case R.id.bt_viewing:       //查看视频
+                MediaTestActivity.startSelf(this);
+                break;
+            case R.id.bt_setting:       //设置
+                DialogActivity.startSelf(this);
+                break;
+            case R.id.bt_account:       //拍照
+                MyCameraActivity.startSelf(this);
+                break;
+        }
+    }
 }

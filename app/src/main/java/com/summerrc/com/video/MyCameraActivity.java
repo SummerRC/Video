@@ -37,13 +37,17 @@ public class MyCameraActivity extends Activity implements Callback {
 	private Camera camera;
 	private boolean isPreeTake = true;
 
+	public static void startSelf(Context context) {
+		context.startActivity(new Intent(context, MyCameraActivity.class));
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Window window = getWindow();// µÃµ½´°¿Ú
+		Window window = getWindow();// ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);// ÉèÖÃÈ«ÆÁ
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);// ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½
 		window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
 		setContentView(R.layout.cameraht);
@@ -142,7 +146,7 @@ public class MyCameraActivity extends Activity implements Callback {
 	}
 
 	/**
-	 * ´ò¿ªÉãÏñÍ·
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·
 	 */
 
 	private void openCamera() {
@@ -157,7 +161,7 @@ public class MyCameraActivity extends Activity implements Callback {
 				int picWidth = display.getWidth();
 				int picHeight = display.getHeight();
 				parameters.setPreviewSize(picWidth, picHeight);
-				//parameters.setPreviewFrameRate(2);//Ã¿Ãë3Ö¡
+				//parameters.setPreviewFrameRate(2);//Ã¿ï¿½ï¿½3Ö¡
 				parameters.set("jpeg-quality", 85);
 				camera.setParameters(parameters);
 				camera.setPreviewDisplay(surfaceHolder);
@@ -172,7 +176,7 @@ public class MyCameraActivity extends Activity implements Callback {
 	}
 
 	/**
-	 * ¹Ø±ÕÉãÏñÍ·
+	 * ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½Í·
 	 */
 	private void closeCamera() {
 
@@ -191,7 +195,7 @@ public class MyCameraActivity extends Activity implements Callback {
 	}
 
 	/**
-	 * ÉãÏñÍ·¶Ô½¹
+	 * ï¿½ï¿½ï¿½ï¿½Í·ï¿½Ô½ï¿½
 	 */
 	private void AutoFocus() {
 		if (camera != null) {
@@ -200,7 +204,7 @@ public class MyCameraActivity extends Activity implements Callback {
 	}
 
 	/**
-	 * ¼ÌÐøÅÄÕÕ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	private void ContiniuTakepictrue() {
 		if (camera != null) {
@@ -210,7 +214,7 @@ public class MyCameraActivity extends Activity implements Callback {
 	}
 
 	/**
-	 * ÉãÏñÍ·ÅÄÕÕ
+	 * ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½
 	 */
 	private PictureCallback pictureCallback = new PictureCallback() {
 
@@ -218,10 +222,10 @@ public class MyCameraActivity extends Activity implements Callback {
 		public void onPictureTaken(byte[] data, Camera camera) {
 			// TODO Auto-generated method stub
 			try {
-				// Éú³ÉÍ¼Æ¬
+				// ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
 				Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0,
 						data.length);
-				// ´´½¨ÎÄ¼þ
+				// ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
 				File file=new File(Environment.getExternalStorageDirectory()+"/CameraHTKJ");
 				if(!file.exists())
 				{
@@ -233,12 +237,12 @@ public class MyCameraActivity extends Activity implements Callback {
 				
 				BufferedOutputStream outputStream = new BufferedOutputStream(
 						new FileOutputStream(myCaptureFile));
-				// Ñ¹Ëõ×ªµµ±£´æµ½±¾µØ
+				// Ñ¹ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½æµ½ï¿½ï¿½ï¿½ï¿½
 				bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream);
 				outputStream.flush();
 				outputStream.close();
 
-				Toast.makeText(MyCameraActivity.this, "±£´æ³É¹¦,±£´æÂ·¾¶"
+				Toast.makeText(MyCameraActivity.this, "ï¿½ï¿½ï¿½ï¿½É¹ï¿½,ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½"
 						+ myCaptureFile.getAbsolutePath(), Toast.LENGTH_SHORT).show();
 				isPreeTake = false;
 				// closeCamera();
@@ -252,7 +256,7 @@ public class MyCameraActivity extends Activity implements Callback {
 	};
 
 	/**
-	 * ¼ì²éSDcardÊÇ·ñ´æÔÚ
+	 * ï¿½ï¿½ï¿½SDcardï¿½Ç·ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @return
 	 */
@@ -265,7 +269,7 @@ public class MyCameraActivity extends Activity implements Callback {
 	}
 
 	/**
-	 * ´Ý»ÙÊ±½áÊø
+	 * ï¿½Ý»ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 	 */
 	@Override
 	protected void onDestroy() {
