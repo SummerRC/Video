@@ -13,17 +13,12 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 
 /**
- * @author Andrew.Lee
+ * @author SummerRC
  * @version 1.0
- * @create 2011-6-8 ÏÂÎç03:11:13
- * @see
  */
 
 public class ImageViewers extends Activity {
-    private static String TAG = "ImageView";
     private ImageView imageView;
-    private Intent intent;
-    private Drawable drawable;
     private String imagePath;
 
     public void onCreate(Bundle bundle) {
@@ -34,10 +29,11 @@ public class ImageViewers extends Activity {
 
     public void findViews() {
         imageView = (ImageView) findViewById(R.id.image);
-        intent = this.getIntent();
+        Intent intent = this.getIntent();
         imagePath = intent.getStringExtra("path");
+        String TAG = "ImageView";
         Log.i(TAG, "image path:" + imagePath + "======");
-        drawable = Drawable.createFromPath(imagePath);
+        Drawable drawable = Drawable.createFromPath(imagePath);
         imageView.setImageDrawable(drawable);
     }
 
@@ -49,18 +45,15 @@ public class ImageViewers extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // TODO Auto-generated method stub
         if (item.getTitle().equals("process")) {
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
             int width = bitmap.getWidth();
             int height = bitmap.getHeight();
             Matrix m = new Matrix();
             m.setRotate(45);
-            bitmap = Bitmap.createBitmap(bitmap, (width - 100) / 2,
-                    (height - 100) / 2, 100, 100, m, true);
+            bitmap = Bitmap.createBitmap(bitmap, (width - 100) / 2, (height - 100) / 2, 100, 100, m, true);
             imageView.setScaleType(ImageView.ScaleType.CENTER);
             imageView.setImageBitmap(bitmap);
-
         }
         return super.onOptionsItemSelected(item);
     }

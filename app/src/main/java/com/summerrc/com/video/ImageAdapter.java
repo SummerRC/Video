@@ -23,18 +23,13 @@ public class ImageAdapter extends BaseAdapter {
     public ImageAdapter(Context c, ArrayList<Map<Bitmap, String>> thumbnail) {
         context = c;
         thumbnailList = thumbnail;
-        TypedArray typArray = c
-                .obtainStyledAttributes(R.styleable.MediaTestActivity);
-
-        mGalleryItemBackground = typArray.getResourceId(
-                R.styleable.MediaTestActivity_android_galleryItemBackground, 0);
-
+        TypedArray typArray = c.obtainStyledAttributes(R.styleable.MediaTestActivity);
+        mGalleryItemBackground = typArray.getResourceId(R.styleable.MediaTestActivity_android_galleryItemBackground, 0);
         typArray.recycle();
     }
 
     @Override
     public int getCount() {
-
         return thumbnailList.size();
     }
 
@@ -48,7 +43,6 @@ public class ImageAdapter extends BaseAdapter {
         return arg0;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public View getView(int arg0, View arg1, ViewGroup arg2) {
         ImageView image = new ImageView(context);
