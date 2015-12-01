@@ -1,6 +1,7 @@
 package com.summerrc.com.video;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,7 +21,13 @@ import android.widget.ImageView;
 public class ImageViewers extends Activity {
     private ImageView imageView;
     private String imagePath;
+    private static final String PATH = "PATH";
 
+    public static void startSelf(Context context, String path) {
+        Intent intent = new Intent(context, ImageViewers.class);
+        intent.putExtra(PATH, path);
+        context.startActivity(intent);
+    }
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.item);
@@ -30,7 +37,7 @@ public class ImageViewers extends Activity {
     public void findViews() {
         imageView = (ImageView) findViewById(R.id.image);
         Intent intent = this.getIntent();
-        imagePath = intent.getStringExtra("path");
+        imagePath = intent.getStringExtra(PATH);
         String TAG = "ImageView";
         Log.i(TAG, "image path:" + imagePath + "======");
         Drawable drawable = Drawable.createFromPath(imagePath);
