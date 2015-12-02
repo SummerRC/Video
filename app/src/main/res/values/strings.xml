@@ -2,7 +2,7 @@
     <string name="app_name">SummerRC</string>
     <string name="hello">Hello World, MainActivity!</string>
     <string name="record">刻录</string>
-    <string name="stop">返回</string>
+    <string name="stop">上传(暂不可用)</string>
     <string name="next">下一题</string>
     <string name="success">刻录完成</string>
     <string name="error">刻录失败</string>
