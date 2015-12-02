@@ -3,6 +3,7 @@ package com.summerrc.com.video;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
@@ -48,6 +49,10 @@ public class MediaTestActivity extends Activity {
     private List<String> list = new ArrayList<>();
     private int n = 0;
     private MyHandler myHandler;
+
+    public static void startSelf(Context context) {
+        context.startActivity(new Intent(context, MediaTestActivity.class));
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -116,7 +121,6 @@ public class MediaTestActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    // ����ڴ��е�������Ƶ������ͼ��Ϣ ,����ƵΪmp4 ���� 3gp ��ʽ����
     private ArrayList<Map<Bitmap, String>> getVideoThumbnail() {
         ArrayList<Map<Bitmap, String>> thumbnaiLlist = new ArrayList<Map<Bitmap, String>>();
         File folder = new File(VIDEO_FILE_PATH);
@@ -160,7 +164,7 @@ public class MediaTestActivity extends Activity {
 
 
     private static class MyHandler extends Handler {
-        WeakReference<MediaTestActivity> weakReference;     //���е�ǰActivity�����������
+        WeakReference<MediaTestActivity> weakReference;
 
         MyHandler(MediaTestActivity activity) {
             weakReference = new WeakReference<>(activity);

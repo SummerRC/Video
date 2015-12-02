@@ -25,33 +25,38 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 public class MyCameraActivity extends Activity implements Callback {
-	/** Called when the activity is first created. */
-	private SurfaceView surfaceView;
-	private SurfaceHolder surfaceHolder;
-	private Button button1;
-	private Button button2;
-	private Button button3;
-	private Button button4;
-	private Button button5;
-	private boolean isCameraOpen = false;
-	private Camera camera;
-	private boolean isPreeTake = true;
+    /**
+     * Called when the activity is first created.
+     */
+    private SurfaceView surfaceView;
+    private SurfaceHolder surfaceHolder;
+    private Button button1;
+    private Button button2;
+    private Button button3;
+    private Button button4;
+    private Button button5;
+    private boolean isCameraOpen = false;
+    private Camera camera;
+    private boolean isPreeTake = true;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		Window window = getWindow();// µ√µΩ¥∞ø⁄
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);// …Ë÷√»´∆¡
-		window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    public static void startSelf(Context context) {
+        context.startActivity(new Intent(context, MyCameraActivity.class));
+    }
 
-		setContentView(R.layout.cameraht);
-		surfaceView = (SurfaceView) findViewById(R.id.surfaceView);
-		surfaceHolder = surfaceView.getHolder();
-		surfaceHolder.addCallback(this);
-		surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-		
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Window window = getWindow();                                // ÂæóÂà∞Á™óÂè£
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        setContentView(R.layout.cameraht);
+        surfaceView = (SurfaceView) findViewById(R.id.surfaceView);
+        surfaceHolder = surfaceView.getHolder();
+        surfaceHolder.addCallback(this);
+        surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+
 
 	/*	button1 = (Button) findViewById(R.id.myButton1);
 		button1.setOnClickListener(new Button.OnClickListener() {
@@ -71,207 +76,179 @@ public class MyCameraActivity extends Activity implements Callback {
 				closeCamera();
 			}
 		});*/
-		button3 = (Button) findViewById(R.id.myButton3);
-		button3.setOnClickListener(new Button.OnClickListener() {
+        button3 = (Button) findViewById(R.id.myButton3);
+        button3.setOnClickListener(new Button.OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				AutoFocus();
-			}
-		});
-		button4 = (Button) findViewById(R.id.myButton4);
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                AutoFocus();
+            }
+        });
+        button4 = (Button) findViewById(R.id.myButton4);
 
-		button4.setOnClickListener(new Button.OnClickListener() {
+        button4.setOnClickListener(new Button.OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
 
-				if (checkSDCard() && camera != null && isCameraOpen
-						&& isPreeTake) {
+                if (checkSDCard() && camera != null && isCameraOpen
+                        && isPreeTake) {
 
-					camera.takePicture(null, null, pictureCallback);
-					button4.setText(R.string.continiue);
-				} else if (camera != null && !isPreeTake) {
+                    camera.takePicture(null, null, pictureCallback);
+                    button4.setText(R.string.continiue);
+                } else if (camera != null && !isPreeTake) {
 
-					ContiniuTakepictrue();
-					button4.setText(R.string.takePictus);
+                    ContiniuTakepictrue();
+                    button4.setText(R.string.takePictus);
 
-				}
-			}
-		});
-		button5=(Button)findViewById(R.id.myButton5);
-		button5.setOnClickListener(new View.OnClickListener()
-		{
-			
-			@Override
-			public void onClick(View v)
-			{
-				// TODO Auto-generated method stub
-				Intent intent=new Intent(MyCameraActivity.this,ThumbnailActivity.class);
-				startActivity(intent);
-				
-			}
-		});
+                }
+            }
+        });
+        button5 = (Button) findViewById(R.id.myButton5);
+        button5.setOnClickListener(new View.OnClickListener() {
 
-	}
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(MyCameraActivity.this, ThumbnailActivity.class);
+                startActivity(intent);
 
-	@Override
-	public void surfaceCreated(SurfaceHolder holder) {
-		// TODO Auto-generated method stub
-	
-		
-		    
-		openCamera();
-	}
+            }
+        });
 
-	@Override
-	public void surfaceChanged(SurfaceHolder holder, int format, int width,
-			int height) {
-		// TODO Auto-generated method stub
-	
-	}
+    }
 
-	@Override
-	public void surfaceDestroyed(SurfaceHolder holder) {
-		// TODO Auto-generated method stub
-		closeCamera();
-		
-            this.finish();
-	}
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        // TODO Auto-generated method stub
 
-	/**
-	 * ¥Úø™…„œÒÕ∑
-	 */
 
-	private void openCamera() {
+        openCamera();
+    }
 
-		try {
-			if (!isCameraOpen) {
-				camera = Camera.open();
-				Camera.Parameters parameters = camera.getParameters();
-				parameters.setPictureFormat(PixelFormat.JPEG);
-				WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-				Display display = wm.getDefaultDisplay();
-				int picWidth = display.getWidth();
-				int picHeight = display.getHeight();
-				parameters.setPreviewSize(picWidth, picHeight);
-				//parameters.setPreviewFrameRate(2);//√ø√Î3÷°
-				parameters.set("jpeg-quality", 85);
-				camera.setParameters(parameters);
-				camera.setPreviewDisplay(surfaceHolder);
-				camera.startPreview();
-				isCameraOpen = true;
-			}
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width,
+                               int height) {
+        // TODO Auto-generated method stub
 
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-	}
+    }
 
-	/**
-	 * πÿ±’…„œÒÕ∑
-	 */
-	private void closeCamera() {
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        // TODO Auto-generated method stub
+        closeCamera();
 
-		try {
-			if (camera != null && isCameraOpen) {
-				camera.stopPreview();
-				camera.release();
-				camera = null;
-				isCameraOpen = false;
-			}
+        this.finish();
+    }
 
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-	}
+    /**
+     * ÊâìÂºÄÊëÑÂÉèÂ§¥ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
+     */
+    private void openCamera() {
+        try {
+            if (!isCameraOpen) {
+                camera = Camera.open();
+                Camera.Parameters parameters = camera.getParameters();
+                parameters.setPictureFormat(PixelFormat.JPEG);
+                WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+                Display display = wm.getDefaultDisplay();
+                int picWidth = display.getWidth();
+                int picHeight = display.getHeight();
+                parameters.setPreviewSize(picWidth, picHeight);
+                //parameters.setPreviewFrameRate(2);//√øÔøΩÔøΩ3÷°
+                parameters.set("jpeg-quality", 85);
+                camera.setParameters(parameters);
+                camera.setPreviewDisplay(surfaceHolder);
+                camera.startPreview();
+                isCameraOpen = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	/**
-	 * …„œÒÕ∑∂‘Ωπ
-	 */
-	private void AutoFocus() {
-		if (camera != null) {
-			camera.autoFocus(null);
-		}
-	}
+    /**
+     * ÂÖ≥Èó≠ÊëÑÂÉèÂ§¥
+     */
+    private void closeCamera() {
+        try {
+            if (camera != null && isCameraOpen) {
+                camera.stopPreview();
+                camera.release();
+                camera = null;
+                isCameraOpen = false;
+            }
 
-	/**
-	 * ºÃ–¯≈ƒ’’
-	 */
-	private void ContiniuTakepictrue() {
-		if (camera != null) {
-			camera.startPreview();
-			isPreeTake = true;
-		}
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	/**
-	 * …„œÒÕ∑≈ƒ’’
-	 */
-	private PictureCallback pictureCallback = new PictureCallback() {
+    /**
+     * ÊëÑÂÉèÂ§¥ÂØπÁÑ¶
+     */
+    private void AutoFocus() {
+        if (camera != null) {
+            camera.autoFocus(null);
+        }
+    }
 
-		@Override
-		public void onPictureTaken(byte[] data, Camera camera) {
-			// TODO Auto-generated method stub
-			try {
-				// …˙≥…Õº∆¨
-				Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0,
-						data.length);
-				// ¥¥Ω®Œƒº˛
-				File file=new File(Environment.getExternalStorageDirectory()+"/CameraHTKJ");
-				if(!file.exists())
-				{
-					file.mkdirs();
-				}
-				File myCaptureFile = new File(
-						Environment.getExternalStorageDirectory()+"/CameraHTKJ",
-						System.currentTimeMillis() + ".jpg");
-				
-				BufferedOutputStream outputStream = new BufferedOutputStream(
-						new FileOutputStream(myCaptureFile));
-				// —πÀı◊™µµ±£¥ÊµΩ±æµÿ
-				bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream);
-				outputStream.flush();
-				outputStream.close();
+    /**
+     * ÁªßÁª≠ÊãçÁÖßÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
+     */
+    private void ContiniuTakepictrue() {
+        if (camera != null) {
+            camera.startPreview();
+            isPreeTake = true;
+        }
+    }
 
-				Toast.makeText(MyCameraActivity.this, "±£¥Ê≥…π¶,±£¥Ê¬∑æ∂"
-						+ myCaptureFile.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-				isPreeTake = false;
-				// closeCamera();
-				// camera.startPreview();
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
-			}
+    /**
+     * ÊëÑÂÉèÂ§¥ÊãçÁÖßÔøΩÔøΩÔøΩ
+     */
+    private PictureCallback pictureCallback = new PictureCallback() {
+        @Override
+        public void onPictureTaken(byte[] data, Camera camera) {
+            try {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                File file = new File(Environment.getExternalStorageDirectory() + "/CameraHTKJ");
+                if (!file.exists()) {
+                    file.mkdirs();
+                }
+                File myCaptureFile = new File(Environment.getExternalStorageDirectory() + "/CameraHTKJ",
+                        System.currentTimeMillis() + ".jpg");
+                BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
+                /** ÂéãÁº©ËΩ¨Ê°£‰øùÂ≠òÂà∞Êú¨Âú∞ */
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream);
+                outputStream.flush();
+                outputStream.close();
 
-		}
-	};
+                Toast.makeText(MyCameraActivity.this, "‰øùÂ≠òÊàêÂäü,‰øùÂ≠òË∑ØÂæÑ"
+                        + myCaptureFile.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+                isPreeTake = false;
+                // closeCamera();
+                // camera.startPreview();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-	/**
-	 * ºÏ≤ÈSDcard «∑Ò¥Ê‘⁄
-	 * 
-	 * @return
-	 */
-	private boolean checkSDCard() {
-		if (Environment.getExternalStorageState().equals(
-				Environment.MEDIA_MOUNTED))
-			return true;
-		else
-			return false;
-	}
+        }
+    };
 
-	/**
-	 * ¥›ªŸ ±Ω· ¯
-	 */
-	@Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-		
-		this.finish();
-		super.onDestroy();
-	}
+    /**
+     * Ê£ÄÊü•SDÂç°ÊòØÂê¶Â≠òÂú®ÔøΩÔøΩÔøΩÔøΩ
+     *
+     * @return boolean
+     */
+    private boolean checkSDCard() {
+        return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
+    }
+
+    @Override
+    protected void onDestroy() {
+        this.finish();
+        super.onDestroy();
+    }
 }

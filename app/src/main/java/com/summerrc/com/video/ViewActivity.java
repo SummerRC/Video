@@ -14,12 +14,6 @@ public class ViewActivity extends Activity {
         setContentView(R.layout.activity_dialog);
     }
 
-    /**
-     * 遍历sdcard目录下的所有文件
-     *
-     * @param path
-     * @return
-     */
     private ArrayList<String> doSearch(String path) {
         ArrayList<String> fileTempList = new ArrayList<String>();
         File file = new File(path);
